@@ -1,0 +1,53 @@
+.products-container {
+  display: flex;
+  flex-direction: row; /* Align boxes horizontally */
+  justify-content: center; /* Center the boxes horizontally */
+  gap: 50px; /* Space between the boxes */
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%; /* Adjust width as needed */
+  max-width: 400px; /* Adjust width as needed */
+  background-color: black; /* Dark background for boxes */
+  transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+
+.box:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Glow effect on hover */
+  transform: scale(1.05); /* Slightly enlarge the box on hover */
+}
+
+.box-image {
+  width: 100%; /* Full width of the box */
+  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+
+.box:hover .box-image {
+  transform: scale(1.1); /* Zoom in the image on hover */
+}
+
+.box-text {
+  padding: 20px;
+  color: white;
+  text-align: center; /* Center text */
+}
+
+.box-text h3 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.box-text p {
+  margin: 10px 0 0;
+  font-size: 20px;
+}

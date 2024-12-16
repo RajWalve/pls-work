@@ -1,0 +1,113 @@
+/* Navigation bar styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: black; /* Background color for content */
+  overflow-x: hidden;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Increased padding for a larger navbar */
+  background-color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #FAFAFA;
+  border-bottom: 0.1px solid white; /* Thin white line at the bottom */
+}
+
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-center ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-center ul li {
+  margin-left: 30px; /* Increased spacing between menu items */
+}
+
+.nav-center ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 24px; /* Increased font size for larger text */
+}
+
+.nav-center ul li a:hover {
+  color: #686868;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Pushes this section to the far right */
+}
+
+.join-container {
+  display: flex;
+  align-items: center;
+  margin-right: 30px; /* Increased spacing for better alignment */
+  height: 50px; /* Ensure the height is consistent for both containers */
+}
+
+.join-button {
+  background-color: #007BFF; /* Blue color */
+  color: #FAFAFA;
+  text-decoration: none;
+  padding: 12px 24px; /* Increased padding for a larger button */
+  font-size: 18px; /* Increased font size for the button */
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-block;
+}
+
+.join-button:hover {
+  background-color: #0056b3; /* Darker blue color for hover effect */
+}
+
+.user-container {
+  display: flex;
+  align-items: center; /* Ensures the logout button stays vertically centered */
+  height: 50px; /* Keeps consistent height */
+}
+
+#usernameDisplay {
+  margin-right: 15px; /* Increased margin for better spacing */
+  font-size: 18px; /* Increased font size for username display */
+}
+
+.logout-button {
+  background-color: #ff6a00;
+  color: #FAFAFA;
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 15px; /* Adds space between the username and the logout button */
+  display: flex;
+  align-items: center; /* Ensures the text inside the button stays vertically centered */
+}
+
+.logout-button:hover {
+  background-color: #686868;
+}
+
+/* New: Ensure consistent height for both containers */
+.join-container, .user-container {
+  min-height: 50px; /* Ensures the navbar height stays consistent whether logged in or out */
+  display: flex;
+  align-items: center;
+}

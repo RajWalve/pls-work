@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121212; /* Dark background for the page */
+  color: #e0e0e0; /* Light text color for better readability */
+  font-family: Arial, sans-serif; /* Consistent font style */
+}
+
+#receipt-container {
+  background-color: #1e1e1e; /* Slightly lighter dark background for the container */
+  color: #e0e0e0; /* Light text color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Glow effect */
+  padding: 20px;
+  max-width: 600px; /* Limit maximum width */
+  margin: 20px auto; /* Center align container */
+}
+
+h1 {
+  font-size: 28px; /* Larger font size for heading */
+  text-align: center; /* Center align heading */
+  margin-bottom: 20px; /* Space below heading */
+}
+
+p {
+  font-size: 18px; /* Font size for paragraphs */
+  margin: 10px 0; /* Space between paragraphs */
+}
+
+strong {
+  color: #f0f0f0; /* Light color for labels */
+}
+
+.redirectButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.redirectButtons button {
+  background-color: #007bff; /* Blue background for buttons */
+  color: #fff; /* White text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px 20px; /* Padding inside buttons */
+  margin: 0 10px; /* Space between buttons */
+  font-size: 18px; /* Font size for button text */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.redirectButtons button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+@media print {
+  .redirectButtons {
+    display: none; /* Hide the buttons when printing */
+  }
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | Hued Customisations</title>
+  <link rel="stylesheet" href="/css/products.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-center">
+      <ul>
+        <li><a href="homePage.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="join-container" id="joinContainer">
+        <a href="signup.html" class="join-button">Join Us</a>
+      </div>
+
+      <div class="user-container" id="userContainer" style="display: none;">
+        <span id="usernameDisplay"></span>
+        <form id="logoutForm" action="/logout" method="POST">
+          <button type="submit" class="logout-button">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="products-container">
+    <div class="box" onclick="redirectToCategory('keyboards')">
+      <img src="../content/keyboard.jpg" alt="Keyboards" class="box-image">
+      <div class="box-text">
+        <h3>Keyboards</h3>
+        <p>Explore our range of custom keyboards</p>
+      </div>
+    </div>
+
+    <div class="box" onclick="redirectToCategory('cabinets')">
+      <img src="../content/blackTower.jpg" alt="Cabinets" class="box-image">
+      <div class="box-text">
+        <h3>Cabinets</h3>
+        <p>Find the perfect cabinet for your PC setup</p>
+      </div>
+    </div>
+
+    <div class="box" onclick="redirectToCategory('headphones')">
+      <img src="../content/productHeadphone.jpg" alt="Headphones" class="box-image">
+      <div class="box-text">
+        <h3>Headphones</h3>
+        <p>Find the perfect Headphones for your PC setup</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section about">
+        <h3>About Us</h3>
+        <p>Hued Customisations provides bespoke RGB solutions for PCs, components, and peripherals, enhancing both aesthetics and functionality.</p>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="footer-section social-links">
+        <h3>Follow Us</h3>
+        <a href="https://facebook.com" target="_blank">
+          Facebook
+          <img src="../content/fbbbbb.jpg" alt="Facebook" class="social-icon">
+        </a>
+        <a href="https://instagram.com" target="_blank">
+          Instagram
+          <img src="../content/ni.jpg" alt="Instagram" class="social-icon">
+        </a>
+        
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hued Customisations. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('/api/checkLogin');
+        const data = await response.json();
+
+        const userContainer = document.getElementById('userContainer');
+        const joinContainer = document.getElementById('joinContainer');
+
+        if (data.loggedIn) {
+          userContainer.style.display = 'flex'; // or 'block', based on your CSS
+          joinContainer.style.display = 'none';
+          document.getElementById('usernameDisplay').textContent = data.username;
+        } else {
+          userContainer.style.display = 'none';
+          joinContainer.style.display = 'flex';
+        }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      }
+    });
+
+    function redirectToCategory(category) {
+      fetch('/api/checkLogin')
+        .then(response => response.json())
+        .then(data => {
+          if (data.loggedIn) {
+            window.location.href = `/productDetails.html?category=${category}`;
+          } else {
+            window.location.href = '/login.html'; 
+          }
+        })
+        .catch(error => {
+          console.error('Error checking login status:', error);
+        });
+    }
+  </script>
+</body>
+</html>

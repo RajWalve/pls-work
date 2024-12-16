@@ -1,0 +1,88 @@
+/* General Styles */
+body {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Section for "Our Past Work" */
+.past-work-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.past-work-section h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #fff; /* White text */
+}
+
+/* Container for all boxes */
+.boxes-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows boxes to wrap to the next line if needed */
+    gap: 50px; /* Space between boxes */
+    justify-content: center; /* Centers boxes horizontally */
+    padding: 20px;
+}
+
+/* Individual box for video and text */
+.box {
+    display: flex;
+    align-items: center;
+    background-color: black; /* Background color for the box */
+    border-radius: 10px; /* Rounds corners of the box */
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    padding: 20px;
+    border: 2px solid white;
+}
+
+/* Video styling */
+.box video {
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 20px; /* Space between video and text */
+    border-radius: 5px; /* Optional: rounds corners of the video */
+}
+
+/* Text beside the video */
+.box-text {
+    max-width: 400px; /* Adjust as needed */
+}
+
+.box-text h3 {
+    margin-top: 0;
+    color: white; /* Or any color that fits your design */
+    font-size: 30px;
+}
+
+.box-text p {
+    margin: 10px 0 0 0;
+    color: #dcd6d6; /* Or any color that fits your design */
+    font-size: 20px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .box {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%; /* Adjust width for smaller screens */
+    }
+
+    .box video {
+        margin-right: 0;
+        margin-bottom: 20px; /* Add space between video and text on smaller screens */
+        width: 100%; /* Make video full width on small screens */
+    }
+
+    .box-text {
+        max-width: 100%; /* Make text full width on small screens */
+        text-align: center; /* Center-align text on smaller screens */
+    }
+}

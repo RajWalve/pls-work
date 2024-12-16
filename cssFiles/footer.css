@@ -1,0 +1,81 @@
+footer {
+    background-color: #222; /* Dark background for the footer */
+    color: #fff; /* White text color */
+    padding: 20px;
+    font-size: 16px;
+    margin-top: 50px;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+    gap: 20px; /* Space between sections */
+  }
+  
+  .footer-section {
+    flex: 1; /* Allows each section to grow and shrink as needed */
+    max-width: 300px; /* Maximum width for each section */
+    padding: 10px;
+  }
+  
+  .footer-section h3 {
+    margin-top: 0;
+    color: #fff; /* White color for section titles */
+    font-size: 32px;
+  }
+  
+  .footer-section p {
+    margin: 0;
+    color: #dcdcdc; /* Light gray text color */
+    font-size: 18px;
+  }
+  
+  .footer-section a {
+    color: #ffffff; 
+    text-decoration: none; /* Removes underline from links */
+  }
+  
+  .footer-section a:hover {
+    text-decoration: underline; /* Adds underline on hover */
+  }
+  
+  .footer-section.social-links {
+    display: flex;
+    flex-direction: column; /* Stacks social links vertically */
+  }
+  
+  .footer-section.social-links a {
+    margin-bottom: 10px; /* Space between social links */
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-section.social-links .social-icon {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    margin-left: 10px; /* Space between text and icon */
+  }
+  
+  .footer-section.quick-links {
+    display: flex;
+    flex-direction: column; /* Stacks links vertically */
+  }
+  
+  .footer-section.quick-links a {
+    margin-bottom: 10px; /* Space between each link */
+    color: #ffffff; /* White color for links */
+    text-decoration: none; /* Removes underline from links */
+  }
+  
+  .footer-section.quick-links a:hover {
+    text-decoration: underline; /* Adds underline on hover */
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding: 10px;
+    background-color: #222; /* Dark background for footer bottom */
+    color: #fff; /* White text color */
+  }
+  

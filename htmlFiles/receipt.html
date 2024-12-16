@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <link rel="stylesheet" href="/css/receipt.css">
+</head>
+<body>
+  <div id="receipt-container">
+    <h1>Order Receipt</h1>
+    <p><strong>Product Name:</strong> <span id="productName">undefined</span></p> <!-- Changed to Product Name -->
+    <p><strong>Total Price:</strong> <span id="totalPrice">undefined</span></p>
+    <p><strong>Name:</strong> <span id="name">undefined</span></p>
+    <p><strong>Card Number:</strong> <span id="cardNumber">undefined</span></p>
+    <p><strong>Expiration Date:</strong> <span id="expirationDate">undefined</span></p>
+    <p><strong>CVV:</strong> <span id="cvv">undefined</span></p>
+  </div>
+
+  <div class="redirectButtons">
+    <button onclick="window.location.href='products.html'">Keep Shopping</button>
+    <button onclick="window.location.href='homePage.html'">Back to Home</button>
+    <button onclick="printReceipt()">Print Receipt</button>
+  </div>
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const orderDetails = JSON.parse(sessionStorage.getItem('orderDetails'));
+
+      if (orderDetails) {
+        document.getElementById('productName').textContent = orderDetails.productName || 'undefined'; // Changed to productName
+        document.getElementById('totalPrice').textContent = orderDetails.totalPrice || 'undefined';
+        document.getElementById('name').textContent = orderDetails.name || 'undefined';
+        document.getElementById('cardNumber').textContent = '**** **** **** ' + orderDetails.cardNumber || 'undefined'; // Mask card number
+        document.getElementById('expirationDate').textContent = orderDetails.expirationDate || 'undefined';
+        document.getElementById('cvv').textContent = orderDetails.cvv || 'undefined';
+      } else {
+        document.getElementById('receipt-container').innerHTML = '<p>No order details found.</p>';
+      }
+    });
+    function printReceipt(){
+      window.print();
+    }
+  </script>
+</body>
+</html>

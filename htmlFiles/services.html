@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Hued Customisations</title>
+    <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-center">
+      <ul>
+        <li><a href="homePage.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="join-container" id="joinContainer">
+        <a href="signup.html" class="join-button">Join Us</a>
+      </div>
+
+      <div class="user-container" id="userContainer" style="display: none;">
+        <span id="usernameDisplay"></span>
+        <form id="logoutForm" action="/logout" method="POST">
+          <button type="submit" class="logout-button">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Our Services</h1>
+  </header>
+
+  <section class="intro">
+    <p>At Hued Customisations, we specialize in offering unique and personalized customization options for PC peripherals and components. Whether you want a keyboard that matches your aesthetic or a PC case with custom lighting, we have you covered.</p>
+  </section>
+
+  <section class="services">
+    <h2>What We Offer</h2>
+    <div class="products-container">
+      <a href="products.html" class="box">
+        <div class="box-image-container">
+          <img src="/content/keyboard.jpg" alt="Custom Keyboard" class="box-image">
+        </div>
+        <div class="box-text">
+          <h3>Custom Keyboards</h3>
+          <p>Choose from a variety of keycaps, switches, and backlighting options to build your perfect keyboard.</p>
+        </div>
+      </a>
+      <a href="products.html" class="box">
+        <div class="box-image-container">
+          <img src="/content/blueBack.jpg" alt="Custom PC Case" class="box-image">
+        </div>
+        <div class="box-text">
+          <h3>Custom PC Cases</h3>
+          <p>Design your PC case with custom colors, lighting, and window options that match your style.</p>
+        </div>
+      </a>
+      <a href="products.html" class="box">
+        <div class="box-image-container">
+          <img src="/content/fullWhitePc.jpg" alt="RGB Lighting" class="box-image">
+        </div>
+        <div class="box-text">
+          <h3>RGB Lighting Customizations</h3>
+          <p>Add a personal touch to your setup with our RGB lighting options for keyboards, cases, and more.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <ul>
+      <li><strong>Choose Your Product:</strong> Browse our range of products to find the one you want to customize.</li>
+      <li><strong>Select Customization Options:</strong> Customize your product by selecting from various colors, materials, and components.</li>
+      <li><strong>Preview and Order:</strong> Preview your custom product, make adjustments if necessary, and place your order.</li>
+    </ul>
+  </section>
+
+  <div class="shopNow">
+    <button onclick="shopNow()">Shop Now</button>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section about">
+        <h3>About Us</h3>
+        <p>Hued Customisations provides bespoke RGB solutions for PCs, components, and peripherals, enhancing both aesthetics and functionality.</p>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="footer-section social-links">
+        <h3>Follow Us</h3>
+        <a href="https://facebook.com" target="_blank">
+          Facebook
+          <img src="../content/fbbbbb.jpg" alt="Facebook" class="social-icon">
+        </a>
+        <a href="https://instagram.com" target="_blank">
+          Instagram
+          <img src="../content/ni.jpg" alt="Instagram" class="social-icon">
+        </a>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hued Customisations. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  function shopNow(){
+    window.location.href= "products.html";
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/checkLogin')
+      .then(response => response.json())
+      .then(data => {
+        const userContainer = document.getElementById('userContainer');
+        const joinContainer = document.getElementById('joinContainer');
+
+        if (data.loggedIn) {
+          userContainer.style.display = 'flex'; // or 'block', based on your CSS
+          joinContainer.style.display = 'none';
+          document.getElementById('usernameDisplay').textContent = data.username; // assuming your API provides the username
+        } else {
+          userContainer.style.display = 'none';
+          joinContainer.style.display = 'flex';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking login status:', error);
+      });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Product</title>
+    <link rel="stylesheet" href="/css/customize.css">
+</head>
+<body>
+    <div id="product-customize-container">
+        <div class="product-box">
+            <!-- Leftmost: Product Image -->
+            <div class="product-image-container">
+                <img id="productImage" src="" alt="Product Image" class="product-image">
+            </div>
+
+            <!-- Center: Price Information -->
+            <div class="price-info-container">
+                <h1>Customize Product</h1>
+                <h3>Original Price: $<span id="originalPriceDisplay"></span></h3>
+                <h3>Price after Customization: $<span id="customizedPriceDisplay"></span></h3>
+                
+                <!-- Buy Button inside the box, centered -->
+                <div class="button-container">
+                    <button id="buy-button" class="buy-btn">Buy</button>
+                </div>
+            </div>
+
+            <!-- Rightmost: Color Options -->
+            <div class="color-options-container">
+                <h3>Select a color:</h3>
+                <div id="colorOptions"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let basePrice = 0; // Original base price of the product
+        let originalImageUrl = ''; // Store the original product image
+
+        function fetchProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('productId'); // Get productId from URL
+
+            // Check if productId exists
+            if (!productId) {
+                console.error('Product ID is missing from URL');
+                return;
+            }
+
+            // Fetch the product details using the productId
+            fetch(`/api/products/${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    basePrice = parseFloat(product.price);
+                    document.getElementById('originalPriceDisplay').textContent = basePrice.toFixed(2);
+                    document.getElementById('customizedPriceDisplay').textContent = basePrice.toFixed(2); // Initially, customized price is same as base price
+
+                    // Set original product image
+                    originalImageUrl = `/content/${product.image_url}`;
+                    document.getElementById('productImage').src = originalImageUrl;
+
+                    fetchProductColors(productId); // Fetch color options for the product
+                })
+                .catch(error => {
+                    console.error('Error fetching product details:', error);
+                });
+        }
+
+        function fetchProductColors(productId) {
+            // Fetch the product colors based on the productId
+            fetch(`/api/productColors?product_id=${productId}`)
+                .then(response => response.json())
+                .then(colors => {
+                    const colorOptionsDiv = document.getElementById('colorOptions');
+                    colorOptionsDiv.innerHTML = ''; // Clear existing color options
+
+                    colors.forEach(color => {
+                        // Create radio button for each color
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = 'color';
+                        radio.value = color.price;
+                        radio.id = `color_${color.id}`;
+                        radio.dataset.imageUrl = color.color_image_url; // Store image URL in dataset
+                        radio.dataset.additionalPrice = color.price; // Store color price
+
+                        // Add event listener to update price and image on selection
+                        radio.addEventListener('change', function () {
+                            updatePriceAndImage(this.dataset.additionalPrice, this.dataset.imageUrl);
+                        });
+
+                        // Create label for the radio button
+                        const label = document.createElement('label');
+                        label.htmlFor = `color_${color.id}`;
+                        label.textContent = `${color.color_name} (+$${parseFloat(color.price).toFixed(2)})`;
+
+                        // Append radio button and label to the div
+                        colorOptionsDiv.appendChild(radio);
+                        colorOptionsDiv.appendChild(label);
+                        colorOptionsDiv.appendChild(document.createElement('br'));
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching product colors:', error);
+                });
+        }
+
+        function updatePriceAndImage(additionalPrice, imageUrl) {
+            const additionalCost = parseFloat(additionalPrice);
+            const customizedPrice = basePrice + additionalCost;
+
+            document.getElementById('customizedPriceDisplay').textContent = customizedPrice.toFixed(2); // Update customized price
+            document.getElementById('productImage').src = `/content/${imageUrl}`; // Update product image
+        }
+
+        // Handle the Buy button click
+        document.getElementById('buy-button').addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('productId');
+            const updatedPrice = document.getElementById('customizedPriceDisplay').textContent;
+            const productImage = document.getElementById('productImage').src;
+
+            // Construct the URL with all the details
+            window.location.href = `/buy.html?productId=${productId}&price=${encodeURIComponent(updatedPrice)}&image=${encodeURIComponent(productImage)}`;
+        });
+
+        // Call the function when the page loads
+        document.addEventListener('DOMContentLoaded', fetchProductDetails);
+    </script>
+</body>
+</html>

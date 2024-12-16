@@ -1,0 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #121212; /* Dark background for the page */
+  color: #e0e0e0; /* Light text color for better readability */
+}
+
+h1 {
+  text-align: center;
+  color: #e0e0e0; /* Light text color for the heading */
+}
+
+#tablesContainer {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #333; /* Darker border */
+  background-color: #1e1e1e; /* Dark background for table rows */
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.table-row span {
+  flex: 1;
+  color: #e0e0e0; /* Light text color */
+}
+
+.table-row button {
+  margin-left: 10px;
+  background-color: #2196F3; /* Bright blue button color */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Slightly larger border radius */
+  padding: 10px 20px; /* Increased padding for larger buttons */
+  font-size: 16px; /* Larger font size */
+  cursor: pointer;
+}
+
+.table-row button:hover {
+  background-color: #1976D2; /* Darker blue button color on hover */
+}
+
+#tableData table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#tableData th, #tableData td {
+  border: 1px solid #333; /* Darker border for table cells */
+  padding: 8px;
+  text-align: left;
+}
+
+#tableData th {
+  background-color: #333; /* Dark background for table headers */
+  color: #e0e0e0; /* Light text color for headers */
+}
+
+#dataContainer, #addRowContainer {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #333; /* Darker border */
+  background-color: #1e1e1e; /* Dark background */
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px; /* Increased padding for larger buttons */
+  font-size: 16px; /* Larger font size */
+  background-color: #2196F3; /* Bright blue button color */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Slightly larger border radius */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1976D2; /* Darker blue button color on hover */
+}
+
+form label {
+  margin-right: 10px;
+  color: #e0e0e0; /* Light text color for labels */
+}
+
+form input {
+  margin-bottom: 10px;
+  padding: 10px; /* Increased padding for input fields */
+  border: 1px solid #333; /* Darker border for input fields */
+  background-color: #222; /* Dark background for input fields */
+  color: #e0e0e0; /* Light text color for input fields */
+}

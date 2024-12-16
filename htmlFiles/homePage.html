@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+  <title>Hued Customisations</title>
+  <link rel="stylesheet" href="/css/homePage.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  
+</head>
+
+<body>
+  <nav>
+
+    <div class="nav-center">
+      <ul>
+        <li><a href="homePage.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li id="yourOrdersLink" style="display: none;"><a href="/myOrders.html">Your Orders</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="join-container" id="joinContainer">
+        <a href="signup.html" class="join-button">Join Us</a>
+      </div>
+
+      <div class="user-container" id="userContainer" style="display: none;">
+        <span id="usernameDisplay" class="username-display"></span>
+        <form id="logoutForm" action="/logout" method="POST">
+          <button type="submit" class="logout-button">Logout</button>
+        </form>
+      </div>
+      
+    </div>
+  </nav>
+
+  <div class="content-container">
+    <div class="text-container">
+      <h1>Hued Customisations</h1>
+      <p>We provide custom RGB solutions for PC's and peripherals</p>
+      <button onclick="servicesPageRedirect()">Explore</button>
+    </div>
+    <div class="images">
+      <div class="badaImage">
+        <img src="../content/blueBack.jpg" alt="badaImage">
+      </div>
+    </div>
+  </div>
+  
+  <!-- New Section Below -->
+  <div class="what-we-do-section">
+    <div class="what-we-do">
+      <h2>What We Provide</h2>
+    </div>
+  </div>
+
+  <div class="boxes-container">
+    <div class="box">
+      <img src="../content/whiteorangeFullPC.jpg" alt="Box Image 1" class="box-image">
+      <div class="box-text">
+        <h3>Personalised designs</h3>
+        <p>Customise your own products and build a setup just for you!</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="../content/glassPaneWhite.jpg" alt="Box Image 1" class="box-image">
+      <div class="box-text">
+        <h3>Top of the line Products</h3>
+        <p>All our partners are the best providers in the market</p>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="../content/plainWhiteTower.jpg" alt="Box Image 1" class="box-image">
+      <div class="box-text">
+        <h3>Pre-designed Goodies</h3>
+        <p>We provide merchandise themed customisations!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-work-section">
+    <a href="projects.html" class="checkout-button">Checkout Our Work</a>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section about">
+        <h3>About Us</h3>
+        <p>Hued Customisations provides bespoke RGB solutions for PCs, components, and peripherals, enhancing both aesthetics and functionality.</p>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="footer-section social-links">
+        <h3>Follow Us</h3>
+        <a href="https://facebook.com" target="_blank">
+          Facebook
+          <img src="../content/fbbbbb.jpg" alt="Facebook" class="social-icon">
+        </a>
+        <a href="https://instagram.com" target="_blank">
+          Instagram
+          <img src="../content/ni.jpg" alt="Instagram" class="social-icon">
+        </a>
+        
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Hued Customisations. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const joinContainer = document.getElementById('joinContainer');
+      const userContainer = document.getElementById('userContainer');
+      const usernameDisplay = document.getElementById('usernameDisplay');
+      const yourOrdersLink = document.getElementById('yourOrdersLink');
+      
+
+      // Fetch login status
+      try {
+        const response = await fetch('/api/checkLogin'); // API that checks if user is logged in
+        const data = await response.json();
+
+        if (data.loggedIn) {
+          // Hide the "Join Us" button
+          joinContainer.style.display = 'none';
+
+          // Show the username, "Logout" button
+          userContainer.style.display = 'flex';
+          usernameDisplay.textContent = `${data.username}`; // Display the logged-in user's username
+
+          // Show the "Your Orders" link
+          yourOrdersLink.style.display = 'block';
+
+        } else {
+          // Show the "Join Us" button and hide the user container if not logged in
+          joinContainer.style.display = 'flex';
+          userContainer.style.display = 'none';
+
+          // Hide the "Your Orders" link
+          yourOrdersLink.style.display = 'none';
+          
+        }
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      }
+    });
+
+    // Function to redirect to services page
+    function servicesPageRedirect() {
+      window.location.href = '/services.html'; // Redirect to services page
+    }
+  </script>
+</body>
+</html>

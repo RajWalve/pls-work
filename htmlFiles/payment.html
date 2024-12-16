@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="/css/payment.css">
+</head>
+<body>
+  <div id="payment-container" class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="row">
+              <h3 class="text-center">Payment Details</h3>
+              <img class="img-responsive cc-img" src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png" alt="Credit Card Icons">
+            </div>
+          </div>
+          <div class="panel-body">
+            <form id="payment-form" role="form">
+              <input type="hidden" id="productId" name="productId" value="">
+              <input type="hidden" id="totalPrice" name="totalPrice" value="">
+              <input type="hidden" id="selectedColorId" name="selectedColorId" value=""> <!-- Added hidden input for color ID -->
+              
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" oninput="validateName(this)" required>
+              </div>
+
+              <div class="form-group">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" class="form-control" placeholder="Valid Card Number" required maxlength="12" oninput="validateCardNumber(this)">
+              </div>
+
+              <div class="row">
+                <div class="col-xs-7 col-md-7">
+                  <div class="form-group">
+                    <label for="expirationDate">Expiration Date:</label>
+                    <input type="text" id="expirationDate" name="expirationDate" class="form-control" placeholder="MM/YY" required maxlength="5" oninput="validateExpirationDate(this)">
+                  </div>
+                </div>
+                <div class="col-xs-5 col-md-5">
+                  <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" class="form-control" placeholder="CVC" required maxlength="3" oninput="validateCVV(this)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="cardOwner">Card Owner:</label>
+                <input type="text" id="cardOwner" name="cardOwner" class="form-control" placeholder="Card Owner Name" required>
+              </div>
+            </form>
+          </div>
+          <div class="panel-footer">
+            <button type="button" id="orderButton" class="btn btn-warning btn-lg btn-block" onclick="placeOrder()">Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    let isOrderInProgress = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('productId');
+        const totalPrice = params.get('totalPrice');
+        const productName = params.get('productName');
+        const selectedColorId = params.get('selectedColorId');
+
+        if (!productId || !totalPrice || !productName) {
+            window.location.href = '/products.html'; // Redirect if no productId, productName, or totalPrice
+            return;
+        }
+
+        document.getElementById('productId').value = productId;
+        document.getElementById('totalPrice').value = totalPrice;
+        document.getElementById('selectedColorId').value = selectedColorId;
+    });
+
+    function validateName(input) {
+    input.value = input.value.replace(/[^a-zA-Z\s]/g, ''); 
+}
+
+
+    function validateExpirationDate(input) {
+    input.value = input.value.replace(/[^0-9/]/g, ''); 
+}
+
+
+    function validateCVV(input) {
+        input.value = input.value.replace(/\D/g, ''); 
+    }
+
+    function placeOrder() {
+        if (isOrderInProgress) return; 
+        isOrderInProgress = true;
+
+        const formData = new FormData(document.getElementById('payment-form'));
+        const data = {
+            productId: formData.get('productId'),
+            totalPrice: formData.get('totalPrice'),
+            name: formData.get('name'),
+            cardNumber: formData.get('cardNumber'),
+            expirationDate: formData.get('expirationDate'),
+            cvv: formData.get('cvv'),
+            productName: new URLSearchParams(window.location.search).get('productName'),
+            selectedColorId: formData.get('selectedColorId')
+        };
+
+        fetch('/api/placeOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'  // Ensure cookies are sent with the request
+        })
+        .then(response => {
+            if (response.status === 401) {
+                throw new Error('Unauthorized. Please log in.');
+            } else if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to place order');
+            }
+        })
+        .then(data => {
+            console.log('Order placed successfully:', data);
+
+            const orderDetails = {
+                productName: new URLSearchParams(window.location.search).get('productName'),
+                totalPrice: formData.get('totalPrice'),
+                name: formData.get('name'),
+                cardNumber: formData.get('cardNumber').slice(-4), // Only save the last 4 digits
+                expirationDate: formData.get('expirationDate'),
+                cvv: '***'  // Do not store sensitive information like CVV
+            };
+
+            sessionStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+            alert('Order confirmed!');
+            window.location.href = 'receipt.html';
+        })
+        .catch(error => {
+            console.error('Error placing order:', error);
+            alert(error.message); // Display specific error message
+        })
+        .finally(() => {
+            isOrderInProgress = false; // Re-enable button after request completes
+        });
+    }
+</script>
+
+</body>
+</html>

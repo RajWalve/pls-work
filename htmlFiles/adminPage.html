@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/adminPage.css">
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <div id="tablesContainer">
+    <!-- Table list will be populated here -->
+  </div>
+
+  <div id="dataContainer" style="display: none;">
+    <h2>Table Data</h2>
+    <div id="tableData">
+      <!-- Table data will be displayed here -->
+    </div>
+    <button onclick="document.getElementById('dataContainer').style.display='none'">Back</button>
+  </div>
+
+  <div id="addRowContainer" style="display: none;">
+    <h2>Add New Row</h2>
+    <div id="addRowForm"></div>
+    <button onclick="document.getElementById('addRowContainer').style.display='none'">Cancel</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('/api/tables');
+        const tables = await response.json();
+
+        const tablesContainer = document.getElementById('tablesContainer');
+        tables.forEach(table => {
+          const div = document.createElement('div');
+          div.classList.add('table-row');
+          
+          const buttons = `
+            <button onclick="viewData('${table}')">View Data</button>
+            <button onclick="showAddRow('${table}')">Add Row</button>
+            <button onclick="showDeleteRow('${table}')">Delete Row</button>
+          `;
+          div.innerHTML = `<span>${table}</span>${buttons}`;
+          tablesContainer.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Error fetching table names:', error);
+      }
+    });
+
+    async function viewData(table) {
+      try {
+        const response = await fetch(`/api/tableData?table=${table}`);
+        const data = await response.json();
+        const dataContainer = document.getElementById('dataContainer');
+        const tableData = document.getElementById('tableData');
+        tableData.innerHTML = '';
+
+        if (Array.isArray(data) && data.length > 0) {
+          const tableEl = document.createElement('table');
+          const thead = document.createElement('thead');
+          const tbody = document.createElement('tbody');
+          const headers = Object.keys(data[0]);
+          const headerRow = document.createElement('tr');
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+          tableEl.appendChild(thead);
+
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+              const td = document.createElement('td');
+              td.textContent = row[header];
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+          tableEl.appendChild(tbody);
+
+          tableData.appendChild(tableEl);
+          dataContainer.style.display = 'block';
+        } else {
+          tableData.textContent = 'No data available';
+          dataContainer.style.display = 'block';
+        }
+
+        // Hide delete button when viewing data
+        document.querySelectorAll('.table-row .delete-btn').forEach(button => {
+          button.style.display = 'none';
+        });
+      } catch (error) {
+        console.error('Error fetching table data:', error);
+      }
+    }
+
+    async function showAddRow(table) {
+  try {
+    const response = await fetch(`/api/tableColumns?table=${table}`);
+    const columns = await response.json();
+
+    const addRowContainer = document.getElementById('addRowContainer');
+    const addRowForm = document.getElementById('addRowForm');
+    addRowForm.innerHTML = '';
+
+    const form = document.createElement('form');
+    
+    // Loop through the columns, excluding the 'id' column
+    columns.forEach(column => {
+      if (column !== 'id') { // Skip 'id' since it's auto-incremented
+        const label = document.createElement('label');
+        label.textContent = column;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = column;
+        input.required = true;
+        form.appendChild(label);
+        form.appendChild(input);
+        form.appendChild(document.createElement('br'));
+      }
+    });
+    
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.textContent = 'Add Row';
+    form.appendChild(submitButton);
+
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      await fetch('/api/addRow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table, data })
+      });
+
+      alert('Row added successfully');
+      addRowContainer.style.display = 'none';
+      showButtons(); // Show delete buttons again after adding a row
+    };
+
+    addRowForm.appendChild(form);
+    addRowContainer.style.display = 'block';
+  } catch (error) {
+    console.error('Error fetching column names:', error);
+  }
+}
+
+
+    function showDeleteRow(table) {
+      // Ensure unique ID for each delete form
+      const uniqueId = `delete-${table}-${Date.now()}`;
+      const deleteRowContainer = document.createElement('div');
+      deleteRowContainer.innerHTML = `
+        <h2>Delete Row from ${table}</h2>
+        <label for="${uniqueId}">Row ID:</label>
+        <input type="text" id="${uniqueId}" required>
+        <button onclick="deleteRow('${table}', '${uniqueId}')">Delete Row</button>
+        <button onclick="document.body.removeChild(this.parentElement)">Cancel</button>
+      `;
+      document.body.appendChild(deleteRowContainer);
+
+      // Hide delete button for the table that is being viewed
+      document.querySelectorAll('.table-row .delete-btn').forEach(button => {
+        button.style.display = 'none';
+      });
+    }
+
+    async function deleteRow(table, uniqueId) {
+  const id = document.getElementById(uniqueId).value;
+  if (id) {
+    try {
+      const response = await fetch(`/admin/delete/${table}/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Row deleted successfully');
+        document.body.removeChild(document.querySelector('div'));
+        viewData(table);
+        showButtons();
+      } else {
+        const errorText = await response.text();
+        console.error(`Error deleting row: ${errorText}`);
+        alert(`Error deleting row: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Error deleting row:', error);
+      alert('An unexpected error occurred. Please try again later.');
+    }
+  }
+}
+
+
+    function showButtons() {
+      // Show all delete buttons
+      document.querySelectorAll('.table-row .delete-btn').forEach(button => {
+        button.style.display = 'block';
+      });
+    }
+  </script>
+</body>
+</html>

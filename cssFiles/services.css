@@ -1,0 +1,147 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
+header, footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+h1, h3 {
+  margin: 0;
+  font-size: 90px;
+}
+h2{
+  font-size: 50px;
+  margin-top: 20px;
+}
+
+/* Intro section */
+.intro {
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+  font-size: 25px;
+}
+
+/* How it Works section */
+.how-it-works {
+  padding: 40px 20px;
+  background-color: #000000;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 90px;
+  color: #fff;
+}
+
+.how-it-works ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.how-it-works li {
+  margin: 15px 0;
+  font-size: 22px;
+  color: #ccc;
+}
+
+.how-it-works li strong {
+  color: #fff;
+  font-size: 25px;
+}
+
+/* Services section */
+.products-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.box-image-container {
+  width: 450px;
+  height: 450px;
+  border-radius: 50%; /* Make the container circular */
+  overflow: hidden;
+  background-color: black; /* Background behind the image */
+  transition: transform 0.3s ease;
+  border: 2px solid white;
+}
+
+.box:hover .box-image-container {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.box-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the circle without distortion */
+}
+
+.box-text {
+  margin-top: 20px; /* Space between image and text */
+  color: white;
+}
+
+.box-text h3 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.box-text p {
+  margin: 5px 0 0;
+  font-size: 18px;
+  margin-top: 25px;
+}
+
+h2{
+  font-size: 90px;
+  text-align: center;
+}
+
+.shopNow {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  margin: 40px 0; /* Adds space above and below the button */
+}
+
+.shopNow button {
+  background-color: #007BFF; /* Blue color */
+  color: white;
+  font-size: 25px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.shopNow button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

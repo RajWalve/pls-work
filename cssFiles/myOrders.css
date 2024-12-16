@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121212; /* Dark background for the page */
+  color: #e0e0e0; /* Light text color for better readability */
+  font-family: Arial, sans-serif; /* Consistent font style */
+}
+
+h1 {
+  font-size: 28px; /* Larger font size for heading */
+  text-align: center; /* Center align heading */
+  color: #e0e0e0; /* Light text color */
+  margin: 20px 0; /* Margin above and below heading */
+}
+
+#ordersContainer {
+  max-width: 800px; /* Limit maximum width */
+  margin: 0 auto; /* Center align container */
+  padding: 20px;
+}
+
+.order {
+  background-color: #1e1e1e; /* Slightly lighter dark background for each order */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Glow effect */
+  padding: 15px;
+  margin-bottom: 20px; /* Space between orders */
+}
+
+.order h2 {
+  font-size: 24px; /* Font size for order ID */
+  margin: 0; /* Remove default margin */
+}
+
+.order p {
+  font-size: 18px; /* Font size for order details */
+  margin: 10px 0; /* Space between paragraphs */
+}
+
+.product {
+  background-color: #2e2e2e; /* Darker background for product sections */
+  border-radius: 6px; /* Rounded corners */
+  padding: 10px;
+  margin-top: 10px; /* Space above product section */
+}
+
+.product h3 {
+  font-size: 20px; /* Font size for product names */
+  margin: 0 0 10px 0; /* Space below product name */
+}
+
+.product-item {
+  background-color: #3e3e3e; /* Even darker background for product items */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px;
+  margin-top: 5px; /* Space above each product item */
+}
+
+.product-item p {
+  margin: 5px 0; /* Space between item details */
+}
+
+button{
+  color:white;
+  background-color: #1976D2;
+  padding: 12px 5px;
+  border-radius: 10px;
+  font-weight: bolder;
+  font-size: 13px;
+}
+
+button:hover{
+  cursor: pointer;
+  transition: ease 0.3s;
+  transform: scale(1.1);
+}

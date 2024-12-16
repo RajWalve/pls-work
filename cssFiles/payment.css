@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(255, 255, 255); /* White background for the whole page */
+  color: black; /* Black text color for better contrast */
+  font-family: Arial, sans-serif; /* Consistent font style */
+}
+
+#payment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+
+.panel {
+  background-color: #f0f0f0; /* Pearl background for the panel */
+  color: black; /* Black text color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  max-width: 500px; /* Adjust maximum width for a smaller size */
+  width: 100%; /* Full width within its container */
+}
+
+.panel-heading {
+  padding: 15px; /* Reduced padding */
+  border-bottom: 1px solid #ddd; /* Light border for heading */
+}
+
+.panel-heading h3 {
+  margin: 0;
+  font-size: 22px; /* Slightly smaller font size */
+}
+
+.cc-img {
+  max-width: 100%;
+  height: auto;
+}
+
+.panel-body {
+  padding: 15px; /* Reduced padding */
+}
+
+.form-group {
+  margin-bottom: 10px; /* Reduced margin */
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px; /* Reduced padding */
+  margin-bottom: 10px;
+  border: 1px solid #007bff; /* Blue border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #fff; /* White background for input fields */
+  color: black; /* Black text color */
+}
+
+#orderButton {
+  padding: 12px 5px; /* Adjusted padding */
+  background-color: #007bff; /* Blue background for the button */
+  color: #fff; /* White text color */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Slightly smaller font size */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+#orderButton:hover {
+  background-color: #fff; /* White background on hover */
+  color: #007bff; /* Blue text color on hover */
+  border: 1px solid #007bff; /* Blue border on hover */
+}

@@ -1,0 +1,70 @@
+/* productDetails.css */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black; /* Black background for the whole page */
+  color: white; /* White text color for better contrast */
+  font-family: Arial, sans-serif; /* Consistent font style */
+}
+
+#product-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.product-box {
+  border: 1px solid #ddd;
+  padding: 20px; /* Increased padding for more space inside the box */
+  width: 280px; /* Increased width for larger boxes */
+  text-align: center;
+  background-color: black; /* Black background for each product box */
+  color: white; /* White text color */
+  border-radius: 8px; /* Rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.product-box:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Glow effect on hover */
+  transform: scale(1.05); /* Slightly enlarge the box on hover */
+}
+
+.product-image {
+  width: 100%; /* Adjust width to fit the box */
+  height: auto;
+  border-radius: 8px; /* Rounded corners for the image */
+}
+
+.product-info {
+  margin-top: 10px;
+}
+
+.product-info h2 {
+  font-size: 22px; /* Font size for product name */
+  margin: 10px 0;
+}
+
+.product-info p {
+  font-size: 16px; /* Font size for product price */
+  margin: 5px 0;
+}
+
+.product-info button {
+  margin: 5px;
+  padding: 14px 24px; /* Increased padding for larger buttons */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px; /* Larger font size for buttons */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.product-info button:hover {
+  background-color: #fff; /* White background on hover */
+  color: #000; /* Black text color on hover */
+  border: 1px solid #007bff; /* Optional: add border to match button color */
+}

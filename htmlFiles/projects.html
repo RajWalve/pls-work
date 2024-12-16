@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Hued Customisations</title>
+    <link rel="stylesheet" href="/css/projects.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-center">
+      <ul>
+        <li><a href="homePage.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="join-container" id="joinContainer">
+        <a href="signup.html" class="join-button">Join Us</a>
+      </div>
+
+      <div class="user-container" id="userContainer" style="display: none;">
+        <span id="usernameDisplay"></span>
+        <form id="logoutForm" action="/logout" method="POST">
+          <button type="submit" class="logout-button">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="past-work-section">
+    <h1>Our Past Work</h1>
+
+    <div class="boxes-container">
+        <!-- Box for the first video -->
+        <div class="box">
+            <video autoplay loop muted>
+                <source src="/content/slowLightTurnOn.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="box-text">
+                <h3>Dark themed setup</h3>
+                <p>
+                    Dim light customisations to give a chill natural vibe to the setup.
+                </p>
+            </div>
+        </div>
+
+        <!-- Box for the second video -->
+        <div class="box">
+            <video autoplay loop muted>
+                <source src="/content/whiteAesthetic.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="box-text">
+                <h3>Minimalist white setup</h3>
+                <p>
+                  Dive into the world of minimalism with our White Aesthetic Room Setup. This project focuses on creating a clean, modern look by using a monochromatic white palette, paired with subtle accents to elevate the space. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Box for the third video -->
+        <div class="box">
+            <video autoplay loop muted>
+                <source src="/content/whiteZoroSetup.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="box-text">
+                <h3>Zoro themed custom setup </h3>
+                <p>
+                  Presenting the White Zoro-Themed Customization – a unique blend of style and character. Inspired by the iconic Zoro, this setup combines a striking white color scheme with elements that reflect strength and precision.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>About Us</h3>
+      <p>Hued Customisations provides bespoke RGB solutions for PCs, components, and peripherals, enhancing both aesthetics and functionality.</p>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="footer-section social-links">
+      <h3>Follow Us</h3>
+      <a href="https://facebook.com" target="_blank">
+        Facebook
+        <img src="../content/fbbbbb.jpg" alt="Facebook" class="social-icon">
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        Instagram
+        <img src="../content/ni.jpg" alt="Instagram" class="social-icon">
+      </a>
+      
+    </div>
+
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2024 Hued Customisations. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  fetch('/api/checkLogin')
+    .then(response => response.json())
+    .then(data => {
+      const userContainer = document.getElementById('userContainer');
+      const joinContainer = document.getElementById('joinContainer');
+      const joinButton = document.getElementById('joinButton');
+
+      if (data.loggedIn) {
+        userContainer.style.display = 'flex'; // or 'block', based on your CSS
+        joinContainer.style.display = 'none';
+        document.getElementById('usernameDisplay').textContent = data.username; // assuming your API provides the username
+      } else {
+        userContainer.style.display = 'none';
+        joinContainer.style.display = 'flex';
+      }
+    })
+    .catch(error => {
+      console.error('Error checking login status:', error);
+    });
+});
+
+</script>
+</body>
+</html>

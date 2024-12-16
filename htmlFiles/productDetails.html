@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="/css/productDetails.css">
+</head>
+<body>
+  <nav>
+    <!-- Navbar content here -->
+  </nav>
+
+  <div id="product-details-container">
+    <!-- Product details will be loaded here -->
+  </div>
+<script>
+ document.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get('category');
+
+  if (!category) {
+    window.location.href = '/products.html'; // Redirect if no category
+    return;
+  }
+
+  console.log(`Fetching products for category: ${category}`);
+
+  try {
+    const response = await fetch(`/api/products?category=${category}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log('Fetched data:', data);
+
+    if (data.length === 0) {
+      document.getElementById('product-details-container').innerHTML = '<p>No products found for this category.</p>';
+      return;
+    }
+
+    // Fetch product details including hasCustomizations flag for each product
+    const productDetailsHtml = await Promise.all(data.map(async product => {
+      const productDetailResponse = await fetch(`/api/products/${product.id}`);
+      const productDetailData = await productDetailResponse.json();
+      
+      const price = Number(productDetailData.price); // Ensure price is a number
+      return `
+        <div class="product-box">
+          <img src="/content/${productDetailData.image_url}" alt="${productDetailData.name}" class="product-image">
+          <div class="product-info">
+            <h2>${productDetailData.name}</h2>
+            <p>Price: ₹${price.toFixed(2)}</p>
+            ${productDetailData.hasCustomizations ? `<button onclick="customizeProduct(${productDetailData.id})">Customize</button>` : ''}
+            <button onclick="buyProduct(${productDetailData.id})">Buy</button>
+          </div>
+        </div>
+      `;
+    }));
+
+    document.getElementById('product-details-container').innerHTML = productDetailsHtml.join('');
+  } catch (error) {
+    console.error('Error fetching product details:', error);
+    document.getElementById('product-details-container').innerHTML = '<p>Error loading product details.</p>';
+  }
+});
+
+function customizeProduct(productId) {
+  window.location.href = `/customize.html?productId=${productId}`;
+}
+
+function buyProduct(productId) {
+  window.location.href = `/buy.html?productId=${productId}`;
+}
+
+</script>  
+  
+</body>
+</html>

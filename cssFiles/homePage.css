@@ -1,0 +1,249 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  overflow-x: hidden;
+}
+
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.text-container {
+  max-width: 50%;
+  text-align: left; /* Align text to the left */
+}
+
+.text-container h1 {
+  margin: 0;
+  flex: 1;
+  font-size: 100px;
+  color:  white;
+  
+}
+
+.text-container p {
+  color: whitesmoke;
+  font-size: 25px;
+  margin: 10px 0;
+}
+
+.text-container button {
+  background-color: #007BFF; /* Blue color */
+  color: #FAFAFA;
+  border: none;
+  padding: 10px 20px;
+  font-size: 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.text-container button:hover {
+  background-color: #0056b3; /* Darker blue color for hover effect */
+}
+
+.images {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.badaImage {
+  margin-top: 20px;
+  width: 590px; /* Adjust size as needed */
+  height: 590px; /* Ensure width and height are equal for a perfect circle */
+  border-radius: 50%; /* Makes the container round */
+  overflow: hidden; /* Ensures the image does not overflow the container */
+  display: flex; /* Centers the image inside */
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); /* Glowing effect */
+}
+
+.badaImage img {
+  width: 100%; /* Ensures the image fills the container */
+  height: 100%; /* Ensures the image fills the container */
+  object-fit: cover; /* Maintains aspect ratio and covers the container */
+}
+
+.what-we-do-section {
+  margin-top: 200px;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px; /* Adds space before the next section */
+  font-size: 40px;
+}
+
+.what-we-do h2 {
+  margin: 0;
+  font-size: 2em; /* Adjust as needed */
+  color: white; /* Or any color that fits your design */
+}
+
+.boxes-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows boxes to wrap to the next line if needed */
+  gap: 50px; /* Space between boxes */
+  justify-content: center; /* Centers boxes horizontally */
+  padding: 20px;
+
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  background-color: black; /* Background color for the box */
+  border-radius: 10px; /* Rounds corners of the box */
+  overflow: hidden;
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  padding: 20px;
+  border: 2px solid white;
+}
+
+.box:hover{
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.box-image {
+  width: 300px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 20px; /* Space between image and text */
+}
+
+.box-text {
+  max-width: 400px; /* Adjust as needed */
+}
+
+.box-text h3 {
+  margin-top: 0;
+  color: white; /* Or any color that fits your design */
+  font-size: 30px;
+}
+
+.box-text p {
+  margin: 10px 0 0 0;
+  color: #dcd6d6; /* Or any color that fits your design */
+  font-size: 20px;
+}
+
+.checkout-work-section {
+  text-align: center; /* Centers the button horizontally */
+  margin: 20px 0; /* Adds vertical space above and below the button */
+}
+
+.checkout-button {
+  background-color: #007BFF; /* Blue color */
+  color: #FAFAFA; /* White text color */
+  border: none;
+  padding: 15px 30px;
+  font-size: 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none; /* Removes underline from link */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition effects */
+  margin-top: 30px;
+}
+
+.checkout-button:hover {
+  background-color: #0056b3; /* Darker blue color for hover effect */
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+.checkout-button:active {
+  transform: scale(0.95); /* Slightly shrinks the button on click */
+}
+
+
+footer {
+  background-color: #222; /* Dark background for the footer */
+  color: #fff; /* White text color */
+  padding: 20px;
+  font-size: 16px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+  gap: 20px; /* Space between sections */
+}
+
+.footer-section {
+  flex: 1; /* Allows each section to grow and shrink as needed */
+  max-width: 300px; /* Maximum width for each section */
+  padding: 10px;
+}
+
+.footer-section h3 {
+  margin-top: 0;
+  color: #fff; /* White color for section titles */
+  font-size: 32px;
+}
+
+.footer-section p {
+  margin: 0;
+  color: #dcdcdc; /* Light gray text color */
+  font-size: 18px;
+}
+
+.footer-section a {
+  color: #ffffff; 
+  text-decoration: none; /* Removes underline from links */
+}
+
+.footer-section a:hover {
+  text-decoration: underline; /* Adds underline on hover */
+}
+
+.footer-section.social-links {
+  display: flex;
+  flex-direction: column; /* Stacks social links vertically */
+}
+
+.footer-section.social-links a {
+  margin-bottom: 10px; /* Space between social links */
+  display: flex;
+  align-items: center;
+}
+
+.footer-section.social-links .social-icon {
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+  margin-left: 10px; /* Space between text and icon */
+}
+
+.footer-section.quick-links {
+  display: flex;
+  flex-direction: column; /* Stacks links vertically */
+}
+
+.footer-section.quick-links a {
+  margin-bottom: 10px; /* Space between each link */
+  color: #ffffff; /* White color for links */
+  text-decoration: none; /* Removes underline from links */
+}
+
+.footer-section.quick-links a:hover {
+  text-decoration: underline; /* Adds underline on hover */
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  background-color: #222; /* Dark background for footer bottom */
+  color: #fff; /* White text color */
+}

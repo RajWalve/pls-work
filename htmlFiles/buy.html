@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Product</title>
+  <link rel="stylesheet" href="/css/buy.css">
+</head>
+<body>
+  <div id="product-buy-container">
+    <!-- Product details will be loaded here -->
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('productId');
+      const updatedPrice = params.get('price');
+      const updatedImage = params.get('image');
+
+      if (!productId) {
+        window.location.href = '/products.html'; // Redirect if no productId
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/products/${productId}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const product = await response.json();
+
+        if (!product) {
+          document.getElementById('product-buy-container').innerHTML = '<p>Product not found.</p>';
+          return;
+        }
+
+        // Convert price to a number and format
+        const price = parseFloat(updatedPrice || product.price); // Use updated price if available
+        
+        if (isNaN(price)) {
+          throw new Error('Price is not a valid number');
+        }
+
+        const productImage = updatedImage || `/content/${product.image_url}`; // Use updated image if available
+
+        const productHtml = `
+          <div class="product-box">
+            <img src="${productImage}" alt="${product.name}" class="product-image">
+            <div class="product-info">
+              <h2>${product.name}</h2>
+              <p>Price: ₹${price.toFixed(2)}</p>
+              <p>Sub-Category: ${product.sub_category}</p>
+              <button onclick="buyNow(${product.id}, '${product.name}', ${price.toFixed(2)})">Buy Now</button>
+              
+            </div>
+          </div>
+        `;
+
+        document.getElementById('product-buy-container').innerHTML = productHtml;
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+        document.getElementById('product-buy-container').innerHTML = '<p>Error loading product details.</p>';
+      }
+    });
+
+    function buyNow(productId, productName, totalPrice) {
+  // Get the image source from the product image
+  const productImage = document.querySelector('.product-image').src;
+
+  // Store order details in session storage including the product image
+  const orderDetails = {
+    productId,
+    productName,
+    totalPrice,
+    productImage // Add the product image to the details
+  };
+
+  sessionStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+
+  // Redirect to payment.html with query parameters for safety (optional)
+  window.location.href = `/payment.html?productId=${productId}&productName=${encodeURIComponent(productName)}&totalPrice=${totalPrice}`;
+}
+
+  </script>
+</body>
+</html>
