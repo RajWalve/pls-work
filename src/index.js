@@ -25,10 +25,10 @@ app.use(express.json()); // Ensure you can parse JSON bodies
 
 // Create MySQL connection pool
 const db = mysql.createPool({
-  host: process.env.DB_HOST, 
-  user: process.env.DB_USER,  
-  password: process.env.DB_PASS,  
-  database: process.env.DB_NAME,  
+  host: 'sql12.freesqldatabase.com',
+    user: 'sql12755024',
+    password: 'gC4ADyxyau',
+    database: 'sql12755024',
   waitForConnections: true,
   port: 3306,
   connectionLimit: 10,
